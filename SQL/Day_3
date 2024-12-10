@@ -1,0 +1,141 @@
+***************************** 4th chapter UPDATE BASICS*****************************
+
+->UPDATE command is used to modify the columns of records in a given database table which meet a certain criteria
+    Eg: To update the salary of the employee with name as ramesh to 35000
+
+    update employee set salary=35000 where name='Ramesh';
+
+->UPDATE-multiple column ,it can be used to modify multiple column of rows(records) meeting a certain criteria.The columns to be modified are seperated by columns.
+    Eg: to update the city as caribaou, latitude as 23 and longitude as 133 for rows with id as 44 in station table 
+
+    update station set city='Caribaou',latitude=23,longitude=133 where id=44;
+
+->UPDATE-where multiple condition,
+    A student need not attend the specialclass (the value of specialclass column is set to 'N') if the student
+meets any one of the following conditions.
+1. Score in subject1 is more than 60
+2. Score in subject2 is more than 60
+3. Score in both subject1 and subject2 is more than 40
+
+    update student set specialclass='N' where ((sub1>60)or (sub2>60) or(sub1>40 and sub2>40) );
+
+->UPDATE-arthimetic operator
+    Eg;To increment the mark2 by 20 for the first two rows which have the studentid as 103, use the following update statement. Here we use the arithmetic operator + to increase the mark2 by 20.
+
+    update student set mark2=mark2+20 where studentid=103 limit 2;
+
+***************************** 5th chapter DELETE BASICS *****************************
+
+->The DELETE statement is used to delete existing records in a database table.
+A table called movie is created with the following DDL command:
+
+    create table movie(id INT, name VARCHAR(100), year INT);
+
+To delete the row which contains the value of id as 2, we use the following SQL query.
+
+    delete from movie where id=2;
+
+->DELETE is used to delete the rows in a given table matching a certain criteria. To delete rows where a
+given column value is one among a given set of values we can use IN operator.
+A table called country is created with the following DDL command:
+
+    create table country (countryname VARCHAR(100), capital VARCHAR(100), population BIGINT, countrycode INT);
+
+To delete the rows which contain countrycode as 60 or 61 in the table country, we use the following
+query.
+
+    delete from country where countrycode in(60, 61); 
+
+->DELETE-multiple condition
+A table called library is created with the following DDL command:
+
+    create table library (bookid integer, bookname varchar(200), authorname varchar(200));
+
+To delete the rows (records) from the table library where bookname is 'Forge Your Future'
+and authorname is not 'Abdul Kalam', use the following delete statement.
+
+    delete from library where bookname = 'Forge Your Future' and authorname <> 'Abdul Kalam';
+
+***************************** 6th chapter CREATE INSERT BASICS *****************************
+
+->Create table introduction
+The create table statement is used to create a new table. Creating a table involves naming the table
+and defining its columns along with their data type.
+A table called travels is created with the following DDL command:
+
+    create table travels(travelsname VARCHAR(100), boardingplace VARCHAR(100), destination VARCHAR(100), fare INT);
+
+Here travelsname, boardingplace and destination can accept string values (alphabets, numbers,
+other valid special characters) while fare can accept only integer values.
+
+->create table two column
+To create a table called student with attributes id as int and name as varchar(20), we use the following
+SQL.
+
+    create table student (id int, name varchar(20));
+
+->create table four column
+To create a table called student with columns id as int, name as varchar(20), subject as varchar(10)
+and mark as int, we use the following SQL.
+
+    create table student (id int, name varchar(20), subject varchar(10), mark int);
+
+->INSERT introduction
+A table called customer is created with the following DDL command:
+
+    create table customer (customerid int, customername varchar(40));
+
+To insert a new record with values 2001 as customerid and Surya as customername into the
+table customer, we use the following SQL statement.
+
+    insert into customer (customerid, customername) values (2001, 'Surya');
+
+->insert-four column
+A table called customer is created with the following DDL command:
+
+    create table customer (customerid int, customername varchar(20), salary int, city varchar(20));
+
+To insert a record with values 2002 for customerid, Vishal for customername, 10000 for salary and Coimbatore for city into the customer table, we use the following SQL.
+
+    insert into customer (customerid, customername, salary, city) values (2002, 'Vishal', 10000, 'Coimbatore');
+
+***************************** 7th chapter JOINS *****************************
+
+->self join
+A SELF JOIN is a JOIN in which a table is joined with itself. It is commonly used in tables with a
+hierarchical relationship.
+A table called employee is created with below DDL command
+
+    create table employee (id int, name varchar(50), managerid int null, primary key (id), foreign key (managerid) references empl
+
+The employee table is given below.
+    +----+----+------+
+    |id|name|managerid|
+    +----+----+------+
+    |1 |ABCD|NULL     |
+    |2 |WXYZ|1        |
+    |3 |PQRS|3        |
+    +----+----+------+
+The SQL query to select the employee id, employee name along with the manager name
+is given below.
+
+    select employee.id as employeeid, employee.name as employeename, manager.name as managername from employee join employee as manager on employee.managerid=manager.id order by employee.id;
+
+manager alias is used for the same employee table.
+The result of the above select query is given below.
+    +----+----+------+
+    |employeeid|employeenamename|managerid|
+    +----+----+------+
+    |2 |WXYZ|1        |
+    |3 |PQRS|3        |
+    +----+----+------+
+
+self join
+A table called camera is created with the following DDL command.
+
+    create table camera (id int, modelname varchar(50), megapixel int, previousmodelid int, primary key(id), foreign key (previousmodelid)references camera(id))
+
+Compare each camera with the previous model of the camera by selecting modelname,megapixel and previousmodel's megapixel as previousmegapixel.
+Note: The modelname of the cameras must be sorted in ascending order.
+
+    select current.modelname,current.megapixel,previous.megapixel as previousmegapixel from camera as current join camera as previous on current.previousmodelid=previous.id order by current.modelname ;

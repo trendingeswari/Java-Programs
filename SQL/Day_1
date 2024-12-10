@@ -1,0 +1,68 @@
+
+***************************** 1st chapter SELECT BASICS *****************************
+
+-> To select all row and column
+    
+    select * from table_Name;
+
+-> To select particular column and row 
+
+    select tile, genre from table_Name;
+
+-> to create table_Name
+
+    create table table_Name(id INT,name VARCHAR[1001],size INT);
+
+-> count the something 'count(*)' fetch the number of rows in the result set returned by sql
+
+    select count(*) from table_Name
+
+-> 'where' clause used to fetch row meeting desired condition. 
+    NOTE: string value we must enclose filtering value in 'where'clause is single quotes ''
+
+    select * from table_Name where language ='chinease';
+
+-> 'where' cluase used for the particular condition .eg: employee name whose salary is 10000 from employee table
+    note: result is order by column name in ascending order
+
+    select name from employee where salary=10000 order by name;
+
+-> if we want to make multiple condition in 'where'clause we use the 'and'
+
+    select * from movie where language='chinease' and releaseyear=2012;
+
+-> if we want to make either condition in 'where' clause we use the 'or'
+
+    select * from movie where language='chinease' or releaseyear=2012;
+
+-> if we want to select a not equal condition
+
+    select * from movie where language != 'chinease';
+
+-> if we want to make greater than || greater than or equal to in 'where'clause  
+
+    select * from movie where releaseyear >= 2012;
+
+->if we want to make less than || less than or equal to in 'where'clause
+
+    select * from movie where releaseyear <= 2012;
+
+***************************** 2nd chapter SELECT OPERATORS*****************************
+
+-> 'order by' is used to sort the record retreiving in either ascending or descending order. 
+    Eg: employee table to sort record in ascending order by name , salary .
+
+    select * from employee order by name, salary asc;
+
+-> order by using 'or'
+    eg: to select name of the student who score more than 50 in subject1 or less than 80 in subject2
+
+    select name from student where sub1 >50 or sub2 <80 order by name;
+
+->'limit'clause used for maximum number of record to be retrived 
+    eg: select players with top five scores from player table
+    note:1) result set is ordered by column score in descending order
+         2) top five records are selected from the result using 'limit'clause
+
+    select name , score from player order by score desc limit 5;
+

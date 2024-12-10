@@ -1,0 +1,67 @@
+***************************** 7th chapter JOINS *****************************
+
+->INNER JOIN -two tables
+The INNER JOIN is used to combine records from two tables. It returns records present in the
+intersection of two tables.
+The following Venn diagram illustrates how the INNER JOIN works
+
+A table called fee is created with the following DDL command:
+
+    create table fee(class int primary key, tuitionfee int);
+
+A table called student is created with the following DDL command:
+
+    create table student(studentid int, name varchar(15), gender varchar(1), class int, foreign key (class) references fee(class));
+
+The fee table is given below
++--------+----------+
+|Class | tuitionfee |
++--------+----------+
+|   1    | 100000   |
+|   2    | 125000   |
+|   3    | 150000   |
+|   4    | 175000   |
+|   5    | 200000   |
++--------+----------+
+
+The student table is given below
++--------+--------+--------+--------+
+|studentid| name  | gender | class  |
++--------+--------+--------+--------+
+| 10      | john  |    M   |    1   |
+| 30      | Arun  |    M   |    2   |
+| 40      | Irfan |    M   |    5   |
+| 50      | George|    M   |    3   |
+| 70      | Aru   |    F   |    5   |
+| 80      | Rajesh|    M   |    1   |
+| 90      | Abdul |    M   |    2   |
+| 20      |Sanjana|    F   |    5   |
++--------+--------+--------+--------+
+The SQL query to select the studentid, name, gender and class of the students along with
+their tuitionfee whose class is equal to 5.
+
+    select s.studentid, s.name, s.gender, s.class, f.tuitionfee from student as s inner join fee as f on s.class = f.class where s.class=5 order by s.studentid;
+
+Note: The studentid of the students are sorted in ascending order.
+The result of the above select query is given below.
++----------+-------+--------+-------+-----------+
+|studentid | name  | gender | class | tutionfee |
++----------+-------+--------+-------+-----------+
+| 20       |Sanjana|    F   |   5   |   200000  |
+| 40       |Irfan  |    M   |   5   |   200000  |
+| 70       |Anu    |    f   |   5   |   200000  |
++----------+-------+--------+-------+-----------+
+problem:
+A table called department is created with the following DDL command:
+
+    create table department(id int primary key, name varchar(20), salary int);
+
+A table called employee is created with the following DDL command:
+
+    create table employee(employeeid int, firstname varchar(10), lastname varchar(10), departmentid int, foreign key (departmentid) references department(id));
+
+Write the SQL query to select the employeeid, firstname, lastname of the employees along with their
+department name and salary for whom the salary is greater than 50,000.
+Note: The employeeid of the employees must be sorted in ascending order.
+
+->

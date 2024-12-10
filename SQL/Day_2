@@ -1,0 +1,99 @@
+***************************** 2nd chapter SELECT OPERATORS*****************************
+
+->select-order by desc eg: to select five names and score from player table where the result set is ordered by name and score(both)in descending order
+
+    select name, score from player order by name desc , score desc limit 5;
+
+-> select-IN operator is used to select the record where column values is present in the given set of data. It is a shorthand notation for using multiple or operator
+    Eg: to select a player name who score is any one of the 187, 27, 43 from player table and to list them in the descending order of their score 
+
+    select name from player where score in (187,27,43) order by score desc;
+
+->select between operator is used to select values within the range.the between operator in inclusive of the beginning and end of the range.
+    Eg: to select player records who scored between 100 and 200 from player table sorting them by their score in descending order
+
+    select name from palyer where score between 100 and 200 order by score desc;
+
+->select-NOT operator is used to select record if given conditon is false(not true)
+    Eg: to select all records where values of the column result is 'not fail' 
+    note: name in ascending order
+    
+    select name, sub1,sub2 from student where NOT result='fail' order by name;
+
+->select-NOT NULL, in a table if column is optional and no value is specified for this optional column then a NULL value is assigned to its column value
+    Eg.to select all records from the student table where the values for the column college is not empty (NOT NULL)
+
+    select * from student where college is not null;
+
+->select-distinct , distinct keyword is used to retrive destinct (unique)value .if table contain duplicate value for a given column ,DISTINCT will discard the duplicate values and return only unique values
+    Eg:to fetch count of unique value in the column city 
+
+    select count(distinct city) from supermarket;
+
+->select-arthimetic operator  used to perform arithmetic opeartion on column values in the returned result set
+    Eg: to select all the 'students name' with their 'average marks' ordered by their names 
+
+    select name,(physics+chemistry+maths)/3 as average from student order by name;
+
+***************************** 3rd chapter SELECT AGGREGATE FUNCTION*****************************
+
+-> select-sum(column) function return the total value of numeric column
+    Eg: to select the sum of all the values in the column amount from the sales table
+
+    select sum (amount) from sales;
+
+-> select-max (column) is an AGGREGATE function that returns the largest value present in the given column
+    Eg:to select the maximum value in the column year from the movie table
+
+    select max(year) from movie;
+
+-> select-min (column) is an AGGREGATE function that returns the smallest value present in the given column
+    Eg: to select the minimum value in the column year from the movie table
+    
+    select min(year) from movie;
+
+-> select-avg(column) is an AGGREGATE function return the average value of a given numeric column
+    Eg: to select average of the value in the column year from movie table 
+
+    select avg(year) from movie;
+
+-> select-count (column) function return the total number of values in the specified column. it works with both numeric and non-numeric data types.
+    NOte: * asterick is used as a shortcut to mention any of the column
+    Eg: to count the number of record(rows) in the sales table 
+
+    select count(*) from sales;
+
+->select-count with where condition ,count(column) function along with where condition can be used to know the number of records matching a certain criteria 
+    Eg: to count the number of records(rows) where amount is 2500 in the sales table
+
+    select count(amount) from sales where amount=2500;
+
+->select-group by
+    A table called examscore is created with the following DDL command:
+
+    create table examscore (regnum int, subject varchar(30), marks int);
+
+In the examscore, the regnum is unique for a given student and hence if a given student X with
+regnum ABCD123 has attempted three tests namely Physics, Chemistry and Maths and scored 50, 60
+and 70 marks respectively, then three records (rows) will be in the examscore table for student X as
+given below.
+ABCD123 Physics 50
+ABCD123 Chemistry 60
+ABCD123 Maths 70
+Now to select regnum and the related total marks in all subjects from the table examscore, we use the
+following SQL using group by.
+
+    select regnum, sum(marks) from examscore group by regnum;
+
+This query will yield the following result (50+60+70 = 180)
+ABCD123 180
+
+->select-group by having
+A table called examscore is created with the following DDL command:
+
+    create table examscore (regnum int, subject varchar(30), marks int);
+
+Now to select regnum and the related total marks in all subjects from the table examscore where
+the total marks is more than 170, we use the following SQL using group by and having clause.
+
+    select regnum,sum(marks) as total from examscore group by regnum having total>170;
